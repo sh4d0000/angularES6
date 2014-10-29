@@ -48,7 +48,7 @@ gulp.task('watch', function () {
 // TRANSPILE ES6
 gulp.task('build', ['clean'], function() {
   gulp.src( ['./app/**/*.es6'] )
-      .pipe(traceur( traceurOptions ))
+      //.pipe(traceur( traceurOptions ))
       .pipe(rename({extname: ".js"}))
       .pipe(gulp.dest('./app/traceured'));
 });
