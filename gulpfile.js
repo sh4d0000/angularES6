@@ -7,7 +7,7 @@ var rename = require("gulp-rename");
 var order = require("gulp-order");
 var concat = require("gulp-concat");
 var insert = require("gulp-insert");
-var gulpFilter = require('gulp-filter');
+var runSequence = require('run-sequence');
 var addsrc = require('gulp-add-src');
 
 var traceurOptions = {
@@ -29,36 +29,27 @@ gulp.task('lint', function() {
 
 gulp.task('connect', function() {
   connect.server({
-    root: 'app',
+    root: 'build',
     livereload: true, 
     port: 8888
   });
 });
 
-gulp.task('html', function () {
-  gulp.src('./app/**/*.html').pipe(connect.reload());
+gulp.task('reloadhtml', function () {
+  gulp.src('./build/**/*.html').pipe(connect.reload());
 });
 
-gulp.task('js', function () {
-  gulp.src('./app/**/*.js').pipe(connect.reload());
+gulp.task('reloadjs', function () {
+  gulp.src('./build/js/**/*.js').pipe(connect.reload());
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['./app/**/*.html'], ['html']);
-  gulp.watch(['./app/**/*.js'], ['js']);
-  gulp.watch(['./app/**/*.es6'], ['build']);
-});
-
-// TRANSPILE ES6
-gulp.task('build', ['clean'], function() {
-  gulp.src( ['./app/**/*.es6'] )
-      //.pipe(traceur( traceurOptions ))
-      .pipe(rename({extname: ".js"}))
-      .pipe(gulp.dest('./app/traceured'));
+  gulp.watch(['./app/**/*.html'], ['buildhtml', 'reloadhtml']);
+  gulp.watch(['./app/**/*.js'], ['buildjs', 'reloadjs']);
 });
 
 gulp.task('clean', function () {
-    return gulp.src('./app/build', {read: false}).pipe(clean());
+    return gulp.src('./build', {read: false}).pipe(clean());
 });
 
 gulp.task('dependencies', function() {
@@ -67,11 +58,11 @@ gulp.task('dependencies', function() {
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-animate/angular-animate.js'
         ])
-        .pipe(gulp.dest('./app/build'));
+        .pipe(gulp.dest('./build/js'));
 });
 
 
-gulp.task('traceur', ['clean'], function () {
+gulp.task('buildjs', function () {
     var runtimePath = traceur.RUNTIME_PATH;
 
     return gulp.src(['app/**/*.js'])
@@ -87,7 +78,14 @@ gulp.task('traceur', ['clean'], function () {
          ]))
         .pipe(concat('app.js'))
         .pipe(insert.append('System.get("js/app" + "");'))
-        .pipe(gulp.dest('./app/build'));
+        .pipe(gulp.dest('./build/js'));
 });
 
-gulp.task('default', ['traceur', 'dependencies', 'connect']);
+gulp.task('buildhtml', function(){
+    gulp.src(['app/**/*.html'])
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('default',  function(callback) {
+    runSequence('clean', ['dependencies', 'buildjs', 'buildhtml'], 'connect', 'watch',  callback);
+});

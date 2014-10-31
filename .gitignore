@@ -6,5 +6,5 @@ bower_components
 npm-debug.log
 
 .bowerrc
-app/build
+build
 

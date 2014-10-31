@@ -5,11 +5,12 @@ export default class Security {
         this.name = d
     }
 
-    subscribeToBeta(email) {
+    subscribeToBeta(properties) {
         console.log('subscribeToBeta')
+        properties.beta = true
 
-        let subscription = new Subscription(email, true);
-        subscription.save()
+        let subscription = new Subscription(properties);
+        return subscription.save()
     }
 
 }

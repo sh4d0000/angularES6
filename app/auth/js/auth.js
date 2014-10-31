@@ -11,8 +11,7 @@ auth.controller('AuthController', $scope => {
 
     $scope.subscribe = function () {
         console.log('subscribe controller');
-
-        new Security('sd').subscribeToBeta($scope.email)
+        new Security('sd').subscribeToBeta({email: $scope.email});
     }
 
 });
