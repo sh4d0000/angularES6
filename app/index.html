@@ -27,23 +27,10 @@
         <footer>This is the footer</footer>
 
         <!-- scripts -->
-        <script src=bower_components/angular/angular.js></script>
-        <script src=bower_components/angular-route/angular-route.js></script>
+        <script src=build/angular.js></script>
+        <script src=build/angular-route.js></script>
+        <script src=build/angular-animate.js></script>
 
-        <script src=bower_components/angular-animate/angular-animate.js></script>
-        <!--      <script src=bower_components/requirejs/require.js></script>
-           <script src=./traceured/js/main.js></script>-->
-
-        <script src=./bower_components/traceur/traceur.js></script>
-        <script src=./bower_components/es6-module-loader/dist/es6-module-loader.js></script>
-
-        <script>
-            traceur.options.experimental = true;
-        </script>
-
-
-        <script>
-            System.import('./traceured/js/main').catch(console.error.bind(console));
-        </script>
+        <script src="build/app.js"></script>
     </body>
 </html>

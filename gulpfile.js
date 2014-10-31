@@ -4,7 +4,11 @@ var jshint = require('gulp-jshint');
 var traceur = require('gulp-traceur');
 var clean = require('gulp-clean');
 var rename = require("gulp-rename");
-
+var order = require("gulp-order");
+var concat = require("gulp-concat");
+var insert = require("gulp-insert");
+var gulpFilter = require('gulp-filter');
+var addsrc = require('gulp-add-src');
 
 var traceurOptions = {
     //modules: "amd",
@@ -54,7 +58,36 @@ gulp.task('build', ['clean'], function() {
 });
 
 gulp.task('clean', function () {
-    return gulp.src('./app/traceured', {read: false}).pipe(clean());
+    return gulp.src('./app/build', {read: false}).pipe(clean());
 });
 
-gulp.task('default', [ 'connect', 'watch']);
+gulp.task('dependencies', function() {
+    gulp.src( [
+            'bower_components/angular/angular.js',
+            'bower_components/angular-route/angular-route.js',
+            'bower_components/angular-animate/angular-animate.js'
+        ])
+        .pipe(gulp.dest('./app/build'));
+});
+
+
+gulp.task('traceur', ['clean'], function () {
+    var runtimePath = traceur.RUNTIME_PATH;
+
+    return gulp.src(['app/**/*.js'])
+        .pipe(traceur({
+            experimental: true,
+            moduleName: true,
+            // sourceMap: true,
+            modules: 'register'
+        }))
+        .pipe(addsrc(runtimePath))
+        .pipe(order([
+            'traceur-runtime.js'
+         ]))
+        .pipe(concat('app.js'))
+        .pipe(insert.append('System.get("js/app" + "");'))
+        .pipe(gulp.dest('./app/build'));
+});
+
+gulp.task('default', ['traceur', 'dependencies', 'connect']);

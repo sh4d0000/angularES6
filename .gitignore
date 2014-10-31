@@ -1,8 +1,10 @@
 node_modules
+bower_components
 .idea
 *.iml
 
 npm-debug.log
 
 .bowerrc
+app/build
 
