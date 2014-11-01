@@ -1,6 +1,6 @@
-import Subscription from 'auth/js/subscription';
+import Registration from 'auth/js/subscription';
 
-export default class Security {
+class Security {
     constructor(d) {
         this.name = d
     }
@@ -9,8 +9,10 @@ export default class Security {
         console.log('subscribeToBeta')
         properties.beta = true
 
-        let subscription = new Subscription(properties);
-        return subscription.save()
+        let registration = new Registration(properties);
+        return registration.save()
     }
 
 }
+let security = new Security()
+export default security

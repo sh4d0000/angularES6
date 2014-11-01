@@ -1,8 +1,7 @@
 /*jshint esnext: true */
 /*global angular: false */
 
-import Security from 'auth/js/security'
-import Subscription from 'auth/js/subscription'
+import security from 'auth/js/security'
 
 let auth = angular.module('Bellatrix.auth', ['ngRoute']);
 
@@ -11,7 +10,7 @@ auth.controller('AuthController', $scope => {
 
     $scope.subscribe = function () {
         console.log('subscribe controller');
-        new Security('sd').subscribeToBeta({email: $scope.email});
+        security.subscribeToBeta({email: $scope.email});
     }
 
 });

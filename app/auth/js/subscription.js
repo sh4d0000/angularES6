@@ -1,8 +1,7 @@
-export default class Subscription {
+export default class Registration {
     constructor(properties) {
 
         this.beta = false;
-        this.class = "rigel.resources.Subscription"
         Object.assign(this, properties);
     }
 
@@ -10,7 +9,7 @@ export default class Subscription {
         console.log('save' + JSON.stringify(this))
         let $http = angular.injector(['ng']).get('$http');
 
-        return $http.post('http://localhost:8080/rigel/subscriptions', this).then(result => {
+        return $http.post('http://localhost:8080/rigel/registration', this).then(result => {
             console.log('previous: ' + JSON.stringify(this))
             console.log("returned-->"+JSON.stringify(result.data))
 
