@@ -30,7 +30,8 @@ gulp.task('lint', function() {
 gulp.task('connect', function() {
   connect.server({
     root: 'build',
-    livereload: true, 
+    livereload: true,
+    fallback: './app/index.html',
     port: 8888
   });
 });

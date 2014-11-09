@@ -21,6 +21,13 @@
             </ul>
         </nav>
 
+        <article>
+            <ul ng-repeat="notification in notifications">
+                <li ng-show="notification">{{notification.text}} <button ng-click="removeNotification($index)" >x</button></li>
+            </ul>
+        </article>
+
+
         <article ng-view>
         </article>
 

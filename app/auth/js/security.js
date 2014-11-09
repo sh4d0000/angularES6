@@ -7,11 +7,17 @@ class Security {
 
     subscribeToBeta(properties) {
         console.log('subscribeToBeta')
-        properties.beta = true
 
         let registration = new Registration(properties);
         return registration.save()
     }
+
+    activate(params) {
+        console.log('activate')
+
+        return params.registration.update()
+    }
+
 
 }
 let security = new Security()

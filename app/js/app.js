@@ -21,13 +21,26 @@ bellatrix.config(['$locationProvider', '$routeProvider',
                     templateUrl: "./auth/subscription.html",
                     controller: "AuthController"
                 })
+                .when("/activation/:registrationId", {
+                    templateUrl: "./auth/activation.html",
+                    controller: "AuthController"
+                })
         }
     ]);
 
 
 
 bellatrix.controller('MainController', $scope => {
-    console.log('main called')
+    $scope.notifications = []
+
+    $scope.removeNotification = index => {
+        delete $scope.notifications[index]
+    }
+
+    $scope.addNotification = notification => {
+        notification.time = new Date()
+        $scope.notifications.push(notification)
+    }
 
 });
 
