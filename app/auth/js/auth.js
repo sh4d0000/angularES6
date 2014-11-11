@@ -10,7 +10,7 @@ let auth = angular.module('Bellatrix.auth', ['ngRoute']);
 auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scope, $routeParams, $location) => {
     console.log('auth called');
 
-    $scope.subscribe = function () {
+    $scope.subscribe = () => {
         console.log('subscribe controller');
         security.subscribeToBeta({email: $scope.email}).then(registration => {
             $scope.addNotification({text: 'Successfully registered!', type: 'success'})
@@ -20,7 +20,7 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
         });
     };
 
-    $scope.activate = function() {
+    $scope.activate = () => {
         console.log('activate controller')
         security.activate({
             registration: new Registration({
@@ -41,8 +41,15 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
         });
     }
 
-    $scope.login = function() {
-        
+    $scope.login = () => {
+        console.log('login controller')
+
+        security.login({ user: new User({alias: $scope.alias, password: $scope.password}) }).then((result) => {
+            console.log('logged in as '+security.user.alias);
+            $location.path('/');
+
+            $scope.$apply();
+        });
     }
 
 }]);

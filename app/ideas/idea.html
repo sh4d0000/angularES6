@@ -1,0 +1,23 @@
+<article ng-controller=IdeaController>
+
+    <header>
+        <h1>create idea</h1>
+    </header>
+
+
+    <form name=ideaForm>
+
+        <input type=text ng-model=idea.name placeholder=NAME ng-required=true />
+        <input type=text ng-model=idea.sector placeholder=SECTOR ng-required=true />
+        <input type=text ng-model=idea.product placeholder=PRODUCT ng-required=true />
+        <input type=text ng-model=idea.target placeholder=TARGET ng-required=true />
+        <input type=text ng-model=idea.market placeholder=MARKET ng-required=true />
+        <input type=text ng-model=idea.need placeholder=NEED ng-required=true />
+        <input type=text ng-model=idea.description placeholder=DESCRIPTION ng-required=true />
+
+
+        <button ng-click=save()>Save</button>
+    </form>
+
+
+</article>

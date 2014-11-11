@@ -1,8 +1,10 @@
 /*jshint esnext: true */
 /*global angular: false */
 import auth from 'auth/js/auth'
+import security from 'auth/js/security'
+import ideas from 'ideas/js/ideas'
 
-let bellatrix = angular.module('Bellatrix', ['ngRoute', 'Bellatrix.auth'])
+let bellatrix = angular.module('Bellatrix', ['ngRoute', 'Bellatrix.auth', 'Bellatrix.ideas'])
 
 bellatrix.config(['$locationProvider', '$routeProvider',
         function($locationProvider, $routeProvider) {
@@ -25,12 +27,19 @@ bellatrix.config(['$locationProvider', '$routeProvider',
                     templateUrl: "./auth/activation.html",
                     controller: "AuthController"
                 })
+                .when("/ideas", {
+                    templateUrl: "./ideas/ideas.html"
+                })
+                .when("/idea", {
+                    templateUrl: "./ideas/idea.html"
+                })
         }
     ]);
 
 
 
 bellatrix.controller('MainController', $scope => {
+    $scope.security = security;
     $scope.notifications = []
 
     $scope.removeNotification = index => {

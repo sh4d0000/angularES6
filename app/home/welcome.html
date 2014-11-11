@@ -1,2 +1,3 @@
-<p>Welcome fucker!</p>
+<p ng-if="!security.user">Welcome fucker!</p>
+<p ng-if="security.user">Welcome {{security.user.firstName}} {{security.user.lastName}}!</p>
 

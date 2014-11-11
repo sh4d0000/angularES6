@@ -1,6 +1,6 @@
 <article ng-controller=AuthController>
-    <input id=username placeholder=USERNAME>
-    <input id=password placeholder=PASSWORD>
+    <input id=username placeholder=USERNAME ng-model=alias>
+    <input id=password placeholder=PASSWORD ng-model="password">
 
     <button ng-click="login()">Login</button>
 

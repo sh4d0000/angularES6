@@ -1,0 +1,22 @@
+<article ng-controller=IdeaController>
+    <p>
+        <button ng-click='createIdea()' >Create new Idea</button>
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Sector</th>
+                <th>Date Created</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat='idea in ideas'>
+            <tr>
+                <td>{{idea.title}}</td>
+                <td>{{idea.sector}}</td>
+                <td>{{idea.dateCreated}}</td>
+            </tr>
+        </tbody>
+    </table>
+</article>
