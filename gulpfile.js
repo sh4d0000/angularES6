@@ -57,7 +57,7 @@ gulp.task('dependencies', function() {
     gulp.src( [
             'bower_components/angular/angular.js',
             'bower_components/angular-route/angular-route.js',
-            'bower_components/angular-animate/angular-animate.js'
+            'bower_components/ngAutocomplete/src/ngAutocomplete.js'
         ])
         .pipe(gulp.dest('./build/js'));
 });

@@ -1,6 +1,26 @@
 <article ng-controller=AuthController>
-    <input id=email placeholder=EMAIL ng-model=email >
+    <form name=registrationForm ng-submit=subscribe() >
+
+        <input id=email type=email placeholder=EMAIL ng-model=email />
+
+        <div ng-repeat='entry in survey.entries'>
+            <label >{{entry.question}}</label>
+
+            <input ng-if='entry.type == "LOCALIZATION_CITY"'  class=form-control ng-autocomplete ng-model=entry.answer options=citySearchOptions />
+
+            <select ng-if='entry.type == "CLOSED"' ng-model=entry.answer >
+                <option ng-repeat='answer in entry.predefinedAnswers' value="{{answer}}">{{answer}}</option>
+            </select>
+
+            <select ng-if='entry.type == "TRUE_FALSE"' ng-model=entry.answer >
+                <option value="yes">YES</option>
+                <option value="no">NO</option>
+            </select>
+
+        </div>
 
 
-    <button ng-click="subscribe()" >Subscribe</button>
+        <input type=submit value=Subscribe />
+
+    </form>
 </article>
