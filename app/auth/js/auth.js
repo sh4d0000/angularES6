@@ -4,7 +4,7 @@
 import security from 'auth/js/security'
 import Registration from 'auth/js/subscription';
 import User from 'auth/js/user';
-import SurveyType from 'auth/js/surveyType';
+import Survey from 'auth/js/survey';
 
 let auth = angular.module('Bellatrix.auth', ['ngRoute', 'ngAutocomplete']);
 
@@ -34,7 +34,7 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
     }
 
     $scope.getSurvey = () => {
-        SurveyType.get('registration').then(survey => {
+        Survey.get('registration').then(survey => {
             $scope.survey = survey
 
             $scope.$apply();

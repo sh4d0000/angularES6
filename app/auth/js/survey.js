@@ -1,4 +1,4 @@
-export default class SurveyType {
+export default class Survey {
     constructor(properties = {}) {
         Object.assign(this, properties);
     }
@@ -11,11 +11,11 @@ export default class SurveyType {
         return $http.get(url).then(result => {
             console.log("returned-->" + JSON.stringify(result.data))
 
-            let surveyType = new SurveyType();
-            Object.assign(surveyType, result.data);
+            let survey = new Survey();
+            Object.assign(survey, result.data);
 
-            console.log('after get: ' + JSON.stringify(surveyType));
-            return surveyType;
+            console.log('after get: ' + JSON.stringify(survey));
+            return survey;
         });
     }
 
