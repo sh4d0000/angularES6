@@ -9,8 +9,6 @@ import Survey from 'auth/js/survey';
 let auth = angular.module('Bellatrix.auth', ['ngRoute', 'ngAutocomplete']);
 
 auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scope, $routeParams, $location) => {
-    console.log('auth called');
-
     $scope.initialize = () => {
         $scope.citySearchOptions = {
             types: '(cities)'
@@ -29,20 +27,17 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
 
         let service = new google.maps.places.AutocompleteService();
         service.getPlacePredictions(request, (prediction, status) => {
-            console.log(JSON.stringify(status)+ ' - ' +JSON.stringify(prediction) );
         });
     }
 
     $scope.getSurvey = () => {
         Survey.get('registration').then(survey => {
             $scope.survey = survey
-
             $scope.$apply();
         });
     };
 
     $scope.subscribe = () => {
-        console.log('subscribe controller ' +JSON.stringify($scope.answers));
         security.subscribeToBeta({email: $scope.email, survey: $scope.survey}).then(registration => {
             $scope.addNotification({text: 'Successfully registered!', type: 'success'})
             $location.path('/');
@@ -52,7 +47,6 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
     };
 
     $scope.activate = () => {
-        console.log('activate controller')
         security.activate({
             registration: new Registration({
                 id: $routeParams.registrationId,
@@ -73,12 +67,8 @@ auth.controller('AuthController', ['$scope', '$routeParams', '$location', ($scop
     }
 
     $scope.login = () => {
-        console.log('login controller')
-
         security.login({ user: new User({alias: $scope.alias, password: $scope.password}) }).then((result) => {
-            console.log('logged in as '+security.user.alias);
             $location.path('/');
-
             $scope.$apply();
         });
     }

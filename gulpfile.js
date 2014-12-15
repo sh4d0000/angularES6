@@ -10,16 +10,6 @@ var insert = require("gulp-insert");
 var runSequence = require('run-sequence');
 var addsrc = require('gulp-add-src');
 
-var traceurOptions = {
-    //modules: "amd",
-    //blockBinding: true,
-//    sourceMap: true,
-    types: true,
-    typeAssertions: true,
-    typeAssertionModule: "assert",
-    annotations: true
-  }
-
 gulp.task('lint', function() {
   gulp.src(['./app/**/*.js', '!./app/bower_components/**'])
     .pipe(jshint())
